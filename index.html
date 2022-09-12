@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <title>ONCA SuperCash Countdown Clock Generator</title>
+</head>
+
+<body>
+
+  <header>
+    <nav>
+      <span>ONCA SuperCash Countdown Clock Generator</span>
+    </nav>
+  </header>
+
+  <div class="enterForm">
+    Shell Name:<br />
+    <input class="input" type="text" id="shellName" name="shellName" placeholder="Shell Name" class="css-input">
+    <br /><br />
+    <table width="100%">
+      <tr>
+        <td width="35%"><span style="text-decoration: underline;">ENGLISH Countdown Clock MI Info</span><br /><br />
+          <table style="padding-left:10px;">
+            <tr>
+              <td>
+                Enter Copied Text from MI Clipboard:<br />
+                <textarea rows="15" cols="80" id="copiedMI_en"></textarea>
+                <br /><br />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Countdown Timer (Left) Width:<br />
+                <input class="input" type="text" id="leftAssetWidth_en" name="leftAssetWidth_en" placeholder="Left Asset Width" class="css-input">
+                <br /><br />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Milliseconds Animation - GIF (Right) Width:<br />
+                <input class="input" type="text" id="rightAssetWidth_en" name="rightAssetWidth_en" placeholder="Right Asset Width" class="css-input">
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td width="65%"><span style="text-decoration: underline;">FRENCH Countdown Clock MI Info</span><br /><br />
+          <table style="padding-left:10px;">
+            <tr>
+              <td>
+                Enter Copied Text from MI Clipboard:<br />
+                <textarea rows="15" cols="80" id="copiedMI_fr"></textarea>
+                <br /><br />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Countdown Timer (Left) Width:<br />
+                <input class="input" type="text" id="leftAssetWidth_fr" name="leftAssetWidth_fr" placeholder="Left Asset Width" class="css-input">
+                <br /><br />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Milliseconds Animation - GIF (Right) Width:<br />
+                <input class="input" type="text" id="rightAssetWidth_fr" name="rightAssetWidth_fr" placeholder="Right Asset Width" class="css-input">
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+    </table>
+    <br /><br />
+    <button id="launch">Build HTML</button>
+  </div>
+
+  <div class="output">
+    <textarea rows="15" cols="80" id="formatted"></textarea>
+  </div>
+
+  <div id="copy-selection-block" style="display: none;">
+    <p style="font-style: italic; font-size: .8em;">Selection has been copied!</p>
+  </div>
+
+</body>
+
+<script type="text/javascript">
+  var string = ``;
+  var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&#\/%?=~_|!:,.;()@]*[-A-Z0-9+&@#\/%=~_|])/ig;
+  var miList_en, cdcHref_en, cdcImgLeft_en, cdcImgRight_en, miList_fr, cdcHref_fr, cdcImgLeft_fr, cdcImgRight_fr
+
+  var shellName = document.querySelector("#shellName");
+  //alert(shellName);
+  var leftAssetWidth_en = document.querySelector("#leftAssetWidth_en");
+  var rightAssetWidth_en = document.querySelector("#rightAssetWidth_en");
+  var leftAssetWidth_fr = document.querySelector("#leftAssetWidth_fr");
+  var rightAssetWidth_fr = document.querySelector("#rightAssetWidth_fr");
+  var formatted = document.querySelector("#formatted");
+  var launch = document.querySelector("#launch");
+  if (launch) {
+    launch.addEventListener("click", writeHTML, false);
+  }
+
+  function writeHTML() {
+    // reset
+    document.getElementById("formatted").innerHTML = "";
+    var miList_en = [];
+    var miList_fr = [];
+
+    // get MI URLs and remove the last Campaign Tracking Pixel URL from constructed miList Array
+    var string_en = document.getElementById("copiedMI_en").value;
+    var miList_en = string_en.match(urlRegex);
+    miList_en.pop();
+    var string_fr = document.getElementById("copiedMI_fr").value;
+    var miList_fr = string_fr.match(urlRegex);
+    miList_fr.pop();
+
+    // get and assign tod href, tod img, and legal URLs
+    var cdcHref_en = miList_en[miList_en.length - 4];
+    var cdcImgLeft_en = miList_en[miList_en.length - 3];
+    var cdcImgRight_en = miList_en[miList_en.length - 1];
+    var cdcHref_fr = miList_fr[miList_fr.length - 4];
+    var cdcImgLeft_fr = miList_fr[miList_fr.length - 3];
+    var cdcImgRight_fr = miList_fr[miList_fr.length - 1];
+    //alert(miList);
+    var copyStory = "";
+
+    copyStory += "%%[ /* " + shellName.value + " */ \n\n";
+    copyStory += "/* CONTENT INFO */ \n";
+    copyStory += "set @creativeName = \" \" \n";
+    copyStory += "set @contentAreaName = \"" + shellName.value + "\" \n\n";
+    copyStory += "]%% \n\n"
+    copyStory += "%%[IF @language == \"FR\" then]%% \n"
+    copyStory += "<table class=\"wrapper\" width=\"640\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\"> \n"
+    copyStory += "\u00A0\u00A0<tr> \n"
+    copyStory += "\u00A0\u00A0\u00A0\u00A0<td> \n"
+    copyStory += "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0<table align=\"center\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"> \n"
+    copyStory += "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0<tr> \n"
+    copyStory += "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0<td valign=\"top\"><a href=\"" + cdcHref_fr + "\" target=\"_blank\" alias=\"%%=v(@alias)=%%\"><img src=\"" + cdcImgLeft_fr + "\" width=\"" + leftAssetWidth_fr.value + "\" style=\"display:block; font-family:Arial,Helvetica,sans-serif; font-size:10px; color:#000000; font-weight:bold;\" border=\"0\" class=\"photo\" /></a></td>\n"
+    copyStory += "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0<td valign=\"top\"><a href=\"" + cdcHref_fr + "\" target=\"_blank\" alias=\"%%=v(@alias)=%%\"><img src=\"" + cdcImgRight_fr + "\" width=\"" + rightAssetWidth_fr.value + "\" style=\"display:block; font-family:Arial,Helvetica,sans-serif; font-size:10px; color:#000000; font-weight:bold;\" border=\"0\" class=\"photo\" /></a></td>\n"
+    copyStory += "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</tr> \n"
+    copyStory += "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</table> \n"
+    copyStory += "\u00A0\u00A0\u00A0\u00A0</td> \n"
+    copyStory += "\u00A0\u00A0</tr> \n"
+    copyStory += "</table> \n\n"
+    copyStory += "%%[ ELSE ]%% \n"
+    copyStory += "<table class=\"wrapper\" width=\"640\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\"> \n"
+    copyStory += "\u00A0\u00A0<tr> \n"
+    copyStory += "\u00A0\u00A0\u00A0\u00A0<td> \n"
+    copyStory += "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0<table align=\"center\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"> \n"
+    copyStory += "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0<tr> \n"
+    copyStory += "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0<td valign=\"top\"><a href=\"" + cdcHref_en + "\" target=\"_blank\" alias=\"%%=v(@alias)=%%\"><img src=\"" + cdcImgLeft_en + "\" width=\"" + leftAssetWidth_en.value + "\" style=\"display:block; font-family:Arial,Helvetica,sans-serif; font-size:10px; color:#000000; font-weight:bold;\" border=\"0\" class=\"photo\" /></a></td>\n"
+    copyStory += "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0<td valign=\"top\"><a href=\"" + cdcHref_en + "\" target=\"_blank\" alias=\"%%=v(@alias)=%%\"><img src=\"" + cdcImgRight_en + "\" width=\"" + rightAssetWidth_en.value + "\" style=\"display:block; font-family:Arial,Helvetica,sans-serif; font-size:10px; color:#000000; font-weight:bold;\" border=\"0\" class=\"photo\" /></a></td>\n"
+    copyStory += "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</tr> \n"
+    copyStory += "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</table> \n"
+    copyStory += "\u00A0\u00A0\u00A0\u00A0</td> \n"
+    copyStory += "\u00A0\u00A0</tr> \n"
+    copyStory += "</table> \n\n"
+    copyStory += "%%[ ENDIF ]%% \n"
+
+    formatted.innerHTML = copyStory;
+  }
+</script>
+
+</html>
