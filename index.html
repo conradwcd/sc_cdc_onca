@@ -15,9 +15,20 @@
   </header>
 
   <div class="enterForm">
-    Shell Name:<br />
-    <input class="input" type="text" id="shellName" name="shellName" placeholder="Shell Name" class="css-input">
+    <table width="100%">
+      <tr>
+        <td>
+          Shell Name:<br />
+          <input class="input" type="text" id="shellName" name="shellName" placeholder="Shell Name" class="css-input">
+        </td>
+        <td>
+          Creative Name:<br />
+          <input class="input" type="text" id="creativeName" name="creativeName" placeholder="Creative Name" class="css-input">
+        </td>
+      </tr>
+    </table>
     <br /><br />
+
     <table width="100%">
       <tr>
         <td width="35%"><span style="text-decoration: underline;">ENGLISH Countdown Clock MI Info</span><br /><br />
@@ -128,7 +139,7 @@
 
     copyStory += "%%[ /* " + shellName.value + " */ \n\n";
     copyStory += "/* CONTENT INFO */ \n";
-    copyStory += "set @creativeName = \" \" \n";
+    copyStory += "set @creativeName = \"" + creativeName.value + "\" \n";
     copyStory += "set @contentAreaName = \"" + shellName.value + "\" \n\n";
     copyStory += "]%% \n\n"
     copyStory += "%%[IF @language == \"FR\" then]%% \n"
