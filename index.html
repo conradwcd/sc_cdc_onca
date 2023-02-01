@@ -145,9 +145,9 @@
     copyStory += "set @creativeName = \"" + creativeName.value + "\" \n";
     copyStory += "set @contentAreaName = \"" + shellName.value + "\" \n\n";
 
-    copyStory += "/* ALIASES */ \n";
-                  set @alias = Concat(@language, ": ", @creativeName)
-    copyStory += "set @alias = Concat(@language, \"" + ": " + \"" + creativeName.value + ")" \n";
+    //copyStory += "/* ALIASES */ \n";
+    //              set @alias = Concat(@language, ": ", @creativeName)
+    //copyStory += "set @alias = Concat(@language, \"" + ": " + \"" + creativeName.value + ")" \n";
 
     copyStory += "]%% \n\n"
     copyStory += "%%[IF @language == \"FR\" then]%% \n"
